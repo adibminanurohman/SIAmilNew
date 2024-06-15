@@ -16,22 +16,35 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
 
-        val usernameEditText: EditText = findViewById(R.id.usernameEditText)
-        val passwordEditText: EditText = findViewById(R.id.passwordEditText)
-        val loginButton: Button = findViewById(R.id.loginButton)
+        // Check login status
+        val sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE)
+        val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
 
-        loginButton.setOnClickListener {
-            val username = usernameEditText.text.toString()
-            val password = passwordEditText.text.toString()
-            if (username.isNotEmpty() && password.isNotEmpty()) {
-                performLogin(username, password)
-            } else {
-                Toast.makeText(this, "Please enter username and password", Toast.LENGTH_SHORT).show()
+        if (isLoggedIn) {
+            // If user is already logged in, navigate to MainActivity
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish() // Close LoginActivity
+        } else {
+            setContentView(R.layout.activity_login)
+
+            val usernameEditText: EditText = findViewById(R.id.usernameEditText)
+            val passwordEditText: EditText = findViewById(R.id.passwordEditText)
+            val loginButton: Button = findViewById(R.id.loginButton)
+
+            loginButton.setOnClickListener {
+                val username = usernameEditText.text.toString()
+                val password = passwordEditText.text.toString()
+                if (username.isNotEmpty() && password.isNotEmpty()) {
+                    performLogin(username, password)
+                } else {
+                    Toast.makeText(this, "Please enter username and password", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
+
 
     private fun performLogin(username: String, password: String) {
         val url = "http://103.179.216.69/apicoba/absen/slogin.php?username=$username&password=$password"
@@ -58,7 +71,6 @@ class LoginActivity : AppCompatActivity() {
                             if (json.has("response_status") && json.has("response_message")) {
                                 val responseStatus = json.getString("response_status")
                                 val responseMessage = json.getString("response_message")
-//                                Toast.makeText(this@LoginActivity, responseMessage, Toast.LENGTH_SHORT).show()
                                 if (responseStatus == "OK") {
                                     val dataArray = json.getJSONArray("data")
                                     if (dataArray.length() > 0) {
@@ -68,18 +80,23 @@ class LoginActivity : AppCompatActivity() {
                                         val kotaLayanan = userData.getString("kota_layanan")
                                         val dep = userData.getString("dep")
 
-                                        // Handle successful login here
-//                                        Toast.makeText(this@LoginActivity, "Welcome $nama", Toast.LENGTH_SHORT).show()
+                                        // Save login status
+                                        val sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE)
+                                        val editor = sharedPreferences.edit()
+                                        editor.putBoolean("isLoggedIn", true)
+                                        editor.putString("nip", nip)
+                                        editor.putString("nama", nama)
+                                        editor.putString("kotaLayanan", kotaLayanan)
+                                        editor.putString("dep", dep)
+                                        editor.apply()
 
                                         // Navigate to MainActivity
                                         val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                                        intent.putExtra("nip", nip)
-                                        intent.putExtra("nama", nama)
-                                        intent.putExtra("kotaLayanan", kotaLayanan)
-                                        intent.putExtra("dep", dep)
                                         startActivity(intent)
                                         finish() // Optional: Close LoginActivity
                                     }
+                                } else {
+                                    Toast.makeText(this@LoginActivity, responseMessage, Toast.LENGTH_SHORT).show()
                                 }
                             } else {
                                 Toast.makeText(this@LoginActivity, "Unexpected response format", Toast.LENGTH_SHORT).show()
@@ -96,4 +113,5 @@ class LoginActivity : AppCompatActivity() {
             }
         })
     }
+
 }

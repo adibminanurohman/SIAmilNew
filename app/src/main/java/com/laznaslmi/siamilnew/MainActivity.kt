@@ -75,12 +75,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         builder.setTitle("Logout")
         builder.setMessage("Anda yakin ingin keluar akun?")
 
-        // Jika tombol Yes diklik, maka lakukan logout
         builder.setPositiveButton("Yes") { dialog, which ->
-            // Clear any stored user data or preferences if needed
-            // For example, SharedPreferences clear
-            // val sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE)
-            // sharedPreferences.edit().clear().apply()
+            // Clear stored user data
+            val sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE)
+            val editor = sharedPreferences.edit()
+            editor.clear()
+            editor.apply()
 
             // Navigate back to LoginActivity
             val intent = Intent(this, LoginActivity::class.java)
@@ -89,7 +89,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             finish()
         }
 
-        // Jika tombol No diklik, tutup dialog
         builder.setNegativeButton("No") { dialog, which ->
             dialog.dismiss()
         }
@@ -97,5 +96,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val dialog = builder.create()
         dialog.show()
     }
+
 
 }

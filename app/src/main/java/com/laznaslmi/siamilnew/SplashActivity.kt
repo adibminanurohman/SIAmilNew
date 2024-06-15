@@ -20,9 +20,18 @@ class SplashActivity : AppCompatActivity() {
             insets
         }
 
-        // Menunda selama 3 detik sebelum pindah ke OnBoardingActivity
+        // Menunda selama 3 detik sebelum memeriksa status login
         Handler(Looper.getMainLooper()).postDelayed({
-            startActivity(Intent(this, OnBoardingActivity::class.java))
+            val sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE)
+            val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
+
+            if (isLoggedIn) {
+                // User sudah login, pindah ke MainActivity
+                startActivity(Intent(this, MainActivity::class.java))
+            } else {
+                // User belum login, pindah ke OnBoardingActivity
+                startActivity(Intent(this, OnBoardingActivity::class.java))
+            }
             finish()
         }, 3000) // 3000 ms = 3 detik
     }

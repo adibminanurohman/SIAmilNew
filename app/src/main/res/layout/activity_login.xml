@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -13,12 +12,13 @@
         android:layout_height="192dp"
         android:background="@drawable/backgroundblue400"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="20dp"
+        android:padding="24dp">
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="121.7dp"
-            android:layout_height="118.1dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:srcCompat="@drawable/peganghp"
             android:layout_gravity="center"/>
     </FrameLayout>
@@ -41,13 +41,13 @@
             android:text="Presensi kapan saja dan dimana saja"
             android:gravity="center_horizontal"
             android:textColor="@color/gray_900"
-            android:textSize="24sp" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="13sp"
+            android:textSize="14sp"
             android:fontFamily="@font/poppins"
             android:textColor="@color/gray_400"
             android:layout_centerHorizontal="true"
@@ -71,12 +71,13 @@
             android:layout_height="wrap_content"
             android:hint="Email"
             android:fontFamily="@font/poppins"
-            android:textSize="13sp"
+            android:textSize="16sp"
             android:textColorHint="@color/gray_400"
             android:background="@drawable/edittext_background"
             android:drawableStart="@drawable/ic_email"
             android:drawablePadding="10dp"
-            android:padding="10dp"/>
+            android:paddingVertical="12dp"
+            android:paddingHorizontal="10dp"/>
 
         <EditText
             android:id="@+id/passwordEditText"
@@ -84,21 +85,22 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:hint="Sandi"
-            android:textSize="13sp"
+            android:textSize="16sp"
             android:fontFamily="@font/poppins"
             android:inputType="textPassword"
             android:textColorHint="@color/gray_400"
             android:background="@drawable/edittext_background"
             android:drawableStart="@drawable/ic_sandi"
             android:drawablePadding="10dp"
-            android:padding="10dp"/>
+            android:paddingVertical="12dp"
+            android:paddingHorizontal="10dp"/>
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Lupa sandi?"
-            android:textSize="13sp"
+            android:textSize="14sp"
             android:fontFamily="@font/poppins"
             android:layout_marginTop="8dp"
             android:layout_gravity="end"
@@ -109,11 +111,11 @@
     <Button
         android:id="@+id/loginButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_alignParentBottom="true"
         android:layout_marginHorizontal="20dp"
         android:layout_marginBottom="40dp"
-        android:text="Masuk" />
-
-
+        android:text="Masuk"
+        android:textSize="16sp"
+        android:textAllCaps="false"/>
 </RelativeLayout>
