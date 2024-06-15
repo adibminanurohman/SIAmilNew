@@ -18,7 +18,7 @@
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
-        android:id="@+id/logout"
+        android:id="@+id/logout2"
         android:name="com.laznaslmi.siamilnew.ui.slideshow.SlideshowFragment"
         android:label="@string/logout"
         tools:layout="@layout/fragment_slideshow" />

@@ -13,7 +13,11 @@
             android:icon="@drawable/ic_menu_gallery"
             android:title="@string/menu_gallery" />
         <item
-            android:id="@+id/logout"
+            android:id="@+id/logout2"
+            android:icon="@drawable/ic_logout"
+            android:title="@string/logout" />
+        <item
+            android:id="@+id/nav_logout"
             android:icon="@drawable/ic_logout"
             android:title="@string/logout" />
     </group>
